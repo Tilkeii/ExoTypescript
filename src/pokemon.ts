@@ -1,18 +1,31 @@
 export class Pokemon {
     name: string;
+    level: number;
     health: number;
     speed: number;
-    damage: number;
+    offensiveStat: number;
+    defensiveStat: number;
 
-    constructor(name: string, health: number, speed: number, damage: number) {
+    constructor(
+        name: string,
+        level: number,
+        health: number,
+        speed: number,
+        offensiveStat: number,
+        defensiveStat: number
+    ) {
         this.name = name;
-        this.speed = speed;
+        this.level = level;
         this.health = health;
-        this.damage = damage;
+        this.speed = speed;
+        this.offensiveStat = offensiveStat;
+        this.defensiveStat = defensiveStat;
     }
 
     public attack(enemyPokemon: Pokemon): void {
-        enemyPokemon.health = enemyPokemon.health - this.damage;
+        const { defensiveStat } = enemyPokemon;
+        let damage: number = Math.floor(Math.floor(Math.floor(2 * this.level / 5 + 2) * this.offensiveStat * 60 / defensiveStat) / 50) + 2; // 60 equals to base power from the spell
+        enemyPokemon.health = enemyPokemon.health - damage;
     }
 }
 
