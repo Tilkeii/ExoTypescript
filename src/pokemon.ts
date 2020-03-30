@@ -1,10 +1,18 @@
 export class Pokemon {
     name: string;
+    health: number;
     speed: number;
+    damage: number;
 
-    constructor(name: string, speed: number = 0) {
+    constructor(name: string, health: number, speed: number, damage: number) {
         this.name = name;
         this.speed = speed;
+        this.health = health;
+        this.damage = damage;
+    }
+
+    public attack(enemyPokemon: Pokemon): void {
+        enemyPokemon.health = enemyPokemon.health - this.damage;
     }
 }
 
