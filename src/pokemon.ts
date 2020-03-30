@@ -26,14 +26,22 @@ export class Pokemon {
         const { defensiveStat } = enemyPokemon;
         let damage: number = Math.floor(Math.floor(Math.floor(2 * this.level / 5 + 2) * this.offensiveStat * 60 / defensiveStat) / 50) + 2; // 60 equals to base power from the spell
         enemyPokemon.health = enemyPokemon.health - damage;
+        console.log(`${this.name} attack ${enemyPokemon.name} et lui inflige ${damage} dégats. Il reste ${enemyPokemon.health} HP à ${enemyPokemon.name}`);
     }
 }
 
-export function wichPokemonStarts(pokemonA: Pokemon, pokemonB: Pokemon): Pokemon {
+export interface OrderTurn {
+    firstPokemon: Pokemon,
+    secondPokemon: Pokemon
+}
+
+export function wichPokemonStarts(pokemonA: Pokemon, pokemonB: Pokemon): OrderTurn {
     if(pokemonA.speed > pokemonB.speed)
-        return pokemonA;
+        return { firstPokemon: pokemonA, secondPokemon: pokemonB } as OrderTurn;
     else if(pokemonA.speed < pokemonB.speed)
-        return pokemonB;
+        return { firstPokemon: pokemonB, secondPokemon: pokemonA } as OrderTurn;
     else
-        return Math.random() >= 0.5 ? pokemonA : pokemonB;
+        return Math.random() >= 0.5 ? 
+            { firstPokemon: pokemonA, secondPokemon: pokemonB } as OrderTurn : 
+            { firstPokemon: pokemonB, secondPokemon: pokemonA } as OrderTurn;
 }
