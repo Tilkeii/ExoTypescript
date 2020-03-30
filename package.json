@@ -5,6 +5,7 @@
   "description": "",
   "scripts": {
     "build": "tsc",
+    "start": "tsc && node dist/index.js",
     "test": "jest"
   },
   "repository": {
